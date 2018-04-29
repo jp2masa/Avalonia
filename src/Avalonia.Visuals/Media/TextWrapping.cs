@@ -16,6 +16,11 @@ namespace Avalonia.Media
         /// <summary>
         /// Text can wrap.
         /// </summary>
-        Wrap
+        Wrap,
+
+        /// <summary>
+        /// Text can wrap, but wrapping only occurs on white spaces.
+        /// </summary>
+        WrapWholeWords
     }
 }

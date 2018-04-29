@@ -534,6 +534,27 @@ namespace Avalonia.Skia
                     if (constraint > MAX_LINE_WIDTH)
                         constraint = MAX_LINE_WIDTH;
                 }
+                else if (_wrapping == TextWrapping.WrapWholeWords)
+                {
+                    if (widthConstraint <= 0)
+                    {
+                        constraint = MAX_LINE_WIDTH;
+                    }
+                    else
+                    {
+                        int i;
+
+                        for (i = curOff; i < length; i++)
+                        {
+                            if (IsBreakChar(Text[i]))
+                            {
+                                break;
+                            }
+                        }
+
+                        constraint = Math.Max(widthConstraint, _paint.MeasureText(Text.Substring(curOff, i - curOff)));
+                    }
+                }
 
                 measured = LineBreak(Text, curOff, length, _paint, constraint, out trailingnumber);
 

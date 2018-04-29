@@ -30,9 +30,18 @@ namespace Avalonia.Direct2D1.Media
                 (DWrite.FontStyle)(typeface?.Style ?? FontStyle.Normal),
                 (float)(typeface?.FontSize ?? 12)))
             {
-                format.WordWrapping = wrapping == TextWrapping.Wrap ? 
-                    DWrite.WordWrapping.Wrap :
-                    DWrite.WordWrapping.NoWrap;
+                switch (wrapping)
+                {
+                    case TextWrapping.NoWrap:
+                        format.WordWrapping = DWrite.WordWrapping.NoWrap;
+                        break;
+                    case TextWrapping.Wrap:
+                        format.WordWrapping = DWrite.WordWrapping.Wrap;
+                        break;
+                    case TextWrapping.WrapWholeWords:
+                        format.WordWrapping = DWrite.WordWrapping.WholeWord;
+                        break;
+                }
 
                 TextLayout = new DWrite.TextLayout(
                     factory,

@@ -382,7 +382,7 @@ namespace Avalonia.Controls
         {
             if (!string.IsNullOrEmpty(Text))
             {
-                if (TextWrapping == TextWrapping.Wrap)
+                if (TextWrapping == TextWrapping.Wrap || TextWrapping == TextWrapping.WrapWholeWords)
                 {
                     FormattedText.Constraint = new Size(availableSize.Width, double.PositiveInfinity);
                 }

@@ -101,6 +101,12 @@ namespace Avalonia.Controls
                 this.GetObservable(TextWrappingProperty),
                 (acceptsReturn, wrapping) =>
                 {
+                    if (wrapping == TextWrapping.WrapWholeWords)
+                    {
+                        throw new InvalidOperationException(
+                            "TextWrapping value 'WrapWholeWords' is not valid on TextBox!");
+                    }
+
                     if (acceptsReturn)
                     {
                         return wrapping == TextWrapping.NoWrap ?
