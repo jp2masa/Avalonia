@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using Avalonia.Collections;
-using Avalonia.Metadata;
 
 #nullable enable
 
@@ -11,7 +10,7 @@ namespace Avalonia.Controls
     /// <summary>
     /// An indexed dictionary of resources.
     /// </summary>
-    public class ResourceDictionary : AvaloniaDictionary<object, object?>, IResourceDictionary
+    public class ResourceDictionary : ResourceDictionaryBase, IResourceDictionary
     {
         private IResourceHost? _owner;
         private AvaloniaList<IResourceProvider>? _mergedDictionaries;

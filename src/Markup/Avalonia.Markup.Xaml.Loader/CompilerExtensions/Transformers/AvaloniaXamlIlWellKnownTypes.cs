@@ -39,6 +39,8 @@ namespace Avalonia.Markup.Xaml.XamlIl.CompilerExtensions.Transformers
         public IXamlType CompiledBindingPathBuilder { get; }
         public IXamlType CompiledBindingPath { get; }
         public IXamlType CompiledBindingExtension { get; }
+        public IXamlType IResourceDictionary { get; }
+        public IXamlType ResourceFactory { get; }
 
         public IXamlType ResolveByNameExtension { get; }
 
@@ -127,6 +129,8 @@ namespace Avalonia.Markup.Xaml.XamlIl.CompilerExtensions.Transformers
             CompiledBindingPathBuilder = cfg.TypeSystem.GetType("Avalonia.Markup.Xaml.MarkupExtensions.CompiledBindings.CompiledBindingPathBuilder");
             CompiledBindingPath = cfg.TypeSystem.GetType("Avalonia.Markup.Xaml.MarkupExtensions.CompiledBindings.CompiledBindingPath");
             CompiledBindingExtension = cfg.TypeSystem.GetType("Avalonia.Markup.Xaml.MarkupExtensions.CompiledBindingExtension");
+            IResourceDictionary = cfg.TypeSystem.GetType("Avalonia.Controls.IResourceDictionary");
+            ResourceFactory = cfg.TypeSystem.GetType("Avalonia.Controls.ResourceFactory");
             ResolveByNameExtension = cfg.TypeSystem.GetType("Avalonia.Markup.Xaml.MarkupExtensions.ResolveByNameExtension");
             DataTemplate = cfg.TypeSystem.GetType("Avalonia.Markup.Xaml.Templates.DataTemplate");
             IDataTemplate = cfg.TypeSystem.GetType("Avalonia.Controls.Templates.IDataTemplate");

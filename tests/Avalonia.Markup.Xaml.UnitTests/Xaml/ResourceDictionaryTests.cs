@@ -66,6 +66,41 @@ namespace Avalonia.Markup.Xaml.UnitTests.Xaml
             }
         }
 
+        [Fact]
+        public void DynamicResource_Shared_Works_Correctly()
+        {
+            using (StyledWindow())
+            {
+                var xaml = @"
+<ResourceDictionary xmlns='https://github.com/avaloniaui'
+                    xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'>
+  <x:String x:Key='s1'>A</x:String>
+  <x:String x:Key='s2' x:Shared='True'>B</x:String>
+  <x:String x:Key='s3' x:Shared='True'>C</x:String>
+  <x:Object x:Key='o1' />
+  <x:Object x:Key='o2' x:Shared='True' />
+  <x:Object x:Key='o3' x:Shared='False' />
+  <SolidColorBrush x:Key='b1' Color='Red' />
+  <SolidColorBrush x:Key='b2' x:Shared='True' Color='Red' />
+  <SolidColorBrush x:Key='b3' x:Shared='False' Color='Red' />
+</ResourceDictionary>";
+                var resources = (ResourceDictionary)AvaloniaRuntimeXamlLoader.Load(xaml);
+
+                Assert.True(Object.ReferenceEquals(resources["s1"], resources["s1"]));
+                Assert.True(Object.ReferenceEquals(resources["s2"], resources["s2"]));
+                // WPF actually creates a new string instance
+                //Assert.False(Object.ReferenceEquals(resources["s3"], resources["s3"]));
+
+                Assert.True(Object.ReferenceEquals(resources["o1"], resources["o1"]));
+                Assert.True(Object.ReferenceEquals(resources["o2"], resources["o2"]));
+                Assert.False(Object.ReferenceEquals(resources["o3"], resources["o3"]));
+
+                Assert.True(Object.ReferenceEquals(resources["b1"], resources["b1"]));
+                Assert.True(Object.ReferenceEquals(resources["b2"], resources["b2"]));
+                Assert.False(Object.ReferenceEquals(resources["b3"], resources["b3"]));
+            }
+        }
+
         private IDisposable StyledWindow(params (string, string)[] assets)
         {
             var services = TestServices.StyledWindow.With(
