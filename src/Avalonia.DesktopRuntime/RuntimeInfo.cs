@@ -21,10 +21,10 @@ namespace Avalonia.Shared.PlatformSupport
 
             return new RuntimePlatformInfo
             {
-#if NETCOREAPP2_0
+#if NETCOREAPP2_1
                 IsCoreClr = true,
 #elif NET461
-                IsDotNetFramework = false,
+                IsDotNetFramework = true,
 #endif
                 IsDesktop = true,
                 IsMono = false,
