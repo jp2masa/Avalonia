@@ -1,25 +1,48 @@
-
 using Android.App;
 using Android.OS;
 using Android.Views;
+
+using Avalonia.Rendering;
 
 namespace Avalonia.Android
 {
     public abstract class AvaloniaActivity : Activity
     {
-        
         internal AvaloniaView View;
         object _content;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            RequestWindowFeature(WindowFeatures.NoTitle);
             View = new AvaloniaView(this);
-            if(_content != null)
+            if (_content != null)
                 View.Content = _content;
             SetContentView(View);
             TakeKeyEvents(true);
             base.OnCreate(savedInstanceState);
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            if (AvaloniaLocator.Current.GetService<IRenderTimer>() is ChoreographerTimer timer)
+            {
+                timer.OnResume();
+            }
+
+            View.Root.Renderer.Start();
+        }
+
+        protected override void OnPause()
+        {
+            base.OnPause();
+
+            View.Root.Renderer.Stop();
+
+            if (AvaloniaLocator.Current.GetService<IRenderTimer>() is ChoreographerTimer timer)
+            {
+                timer.OnPause();
+            }
         }
 
         public object Content

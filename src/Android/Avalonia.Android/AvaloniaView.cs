@@ -11,22 +11,24 @@ namespace Avalonia.Android
 {
     public class AvaloniaView : FrameLayout
     {
-        private readonly EmbeddableControlRoot _root;
         private readonly ViewImpl _view;
 
         public AvaloniaView(Context context) : base(context)
         {
             _view = new ViewImpl(context);
             AddView(_view.View);
-            _root = new EmbeddableControlRoot(_view);
-            _root.Prepare();
+            Root = new EmbeddableControlRoot(_view);
+            Root.Prepare();
+            Root.Renderer.Start();
         }
 
         public object Content
         {
-            get { return _root.Content; }
-            set { _root.Content = value; }
+            get { return Root.Content; }
+            set { Root.Content = value; }
         }
+
+        internal EmbeddableControlRoot Root { get; }
 
         public override bool DispatchKeyEvent(KeyEvent e)
         {
