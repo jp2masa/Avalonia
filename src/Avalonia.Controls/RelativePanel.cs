@@ -56,10 +56,8 @@ namespace Avalonia.Controls
             _childGraph.Measure(availableSize);
 
             _childGraph.Reset(false);
-            var calcWidth = Width.IsNaN() && HorizontalAlignment != HorizontalAlignment.Stretch;
-            var calcHeight = Height.IsNaN() && VerticalAlignment != VerticalAlignment.Stretch;
 
-            var boundingSize = _childGraph.GetBoundingSize(calcWidth, calcHeight);
+            var boundingSize = _childGraph.GetBoundingSize(Width.IsNaN(), Height.IsNaN());
             _childGraph.Reset();
             _childGraph.Measure(boundingSize);
             return boundingSize;
@@ -466,31 +464,31 @@ namespace Avalonia.Controls
                 if (node.Left.IsNaN())
                 {
                     if (!node.Right.IsNaN())
-                        node.Left = AvailableSize.Width - node.Right - childSize.Width;
+                        node.Left = 0;
                     else
                     {
                         node.Left = 0;
-                        node.Right = AvailableSize.Width - childSize.Width;
+                        node.Right = 0;
                     }
                 }
                 else if (!node.Left.IsNaN() && node.Right.IsNaN())
                 {
-                    node.Right = AvailableSize.Width - node.Left - childSize.Width;
+                    node.Right = 0;
                 }
 
                 if (node.Top.IsNaN())
                 {
                     if (!node.Bottom.IsNaN())
-                        node.Top = AvailableSize.Height - node.Bottom - childSize.Height;
+                        node.Top = 0;
                     else
                     {
                         node.Top = 0;
-                        node.Bottom = AvailableSize.Height - childSize.Height;
+                        node.Bottom = 0;
                     }
                 }
                 else if (!node.Top.IsNaN() && node.Bottom.IsNaN())
                 {
-                    node.Bottom = AvailableSize.Height - node.Top - childSize.Height;
+                    node.Bottom = 0;
                 }
 
                 node.Measured = true;
