@@ -1,4 +1,29 @@
 <Window xmlns="https://github.com/avaloniaui"
+        xmlns:local="using:Sandbox"
         xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
-        x:Class="Sandbox.MainWindow">
+        x:Class="Sandbox.MainWindow"
+        x:DataType="local:MainWindowViewModel"
+        x:Name="Root">
+
+  <ScrollViewer>
+    <ItemsControl Items="{Binding Categories}" Padding="0">
+      <ItemsControl.DataTemplates>
+        <DataTemplate DataType="local:Category">
+          <Expander Margin="0" Focusable="False">
+            <Expander.Header>
+              <TextBlock Text="{Binding Key}" DockPanel.Dock="Top" Margin="0" />
+            </Expander.Header>
+            <ListBox MinHeight="10" Items="{Binding Examples}" SelectedItem="{ReflectionBinding #Root.DataContext.Example}" Margin="0" Padding="0">
+              <ListBox.DataTemplates>
+                <DataTemplate DataType="local:ExampleInfo">
+                  <TextBlock Text="{Binding Title}" />
+                </DataTemplate>
+              </ListBox.DataTemplates>
+            </ListBox>
+          </Expander>
+        </DataTemplate>
+      </ItemsControl.DataTemplates>
+    </ItemsControl>
+  </ScrollViewer>
+
 </Window>
