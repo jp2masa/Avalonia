@@ -1,4 +1,10 @@
 <Window xmlns="https://github.com/avaloniaui"
+        xmlns:local="using:Sandbox"
         xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml'
-        x:Class="Sandbox.MainWindow">
+        x:Class="Sandbox.MainWindow"
+        x:DataType="local:MainWindowViewModel">
+
+  <local:DemoControl
+    DemoBrush="{Binding DemoBrush}" />
+
 </Window>
